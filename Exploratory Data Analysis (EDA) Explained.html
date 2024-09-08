@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://127.0.0.1:5500/code.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploratory Data Analysis (EDA) Explained</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f7f7f7;
+        }
+        h1 {
+            color: #333;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border: 1px solid #ddd;
+            display: block;
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Exploratory Data Analysis (EDA) Process</h1>
+    <p>
+        In this example, we will walk through the process of performing Exploratory Data Analysis (EDA) using Python libraries such as <strong>pandas</strong>, <strong>matplotlib</strong>, and <strong>seaborn</strong>.
+        The dataset used is a hypothetical sales data file in CSV format.
+    </p>
+
+    <h2>Step 1: Importing Necessary Libraries</h2>
+    <p>We begin by importing the required libraries for data manipulation and visualization.</p>
+    <pre><code>
+# Import necessary libraries
+import pandas as pd  # For data manipulation
+import numpy as np  # For numerical operations
+import matplotlib.pyplot as plt  # For visualization
+import seaborn as sns  # For advanced visualization
+    </code></pre>
+
+    <h2>Step 2: Loading the Dataset</h2>
+    <p>Next, we load the dataset using <strong>pandas</strong>. The data is stored in a CSV file named <em>sales_data.csv</em>.</p>
+    <pre><code>
+# Load the dataset
+df = pd.read_csv('sales_data.csv')
+
+# Preview the first few rows of the data
+df.head()
+    </code></pre>
+
+    <h2>Step 3: Basic Data Exploration</h2>
+    <p>We start by understanding the structure of the dataset using some basic functions.</p>
+    <pre><code>
+# Check the shape of the data (rows, columns)
+df.shape
+
+# Get an overview of the data types and missing values
+df.info()
+
+# Generate summary statistics for numerical columns
+df.describe()
+    </code></pre>
+
+    <h2>Step 4: Handling Missing Data</h2>
+    <p>To deal with missing values, we first identify them and then decide how to handle them based on the context.</p>
+    <pre><code>
+# Check for missing values
+df.isnull().sum()
+
+# Drop rows with missing target values (if necessary)
+df = df.dropna(subset=['TargetColumn'])
+
+# Optionally, fill missing values for other columns
+df['ColumnWithMissingValues'].fillna(df['ColumnWithMissingValues'].mean(), inplace=True)
+    </code></pre>
+
+    <h2>Step 5: Data Visualization</h2>
+    <p>Now, let's visualize the data to gain deeper insights. We'll use <strong>matplotlib</strong> and <strong>seaborn</strong> for this purpose.</p>
+    
+    <h3>Histogram of Sales</h3>
+    <p>A histogram shows the distribution of sales values.</p>
+    <pre><code>
+# Plotting a histogram
+plt.figure(figsize=(8,6))
+plt.hist(df['Sales'], bins=20, color='skyblue', edgecolor='black')
+plt.title('Distribution of Sales')
+plt.xlabel('Sales')
+plt.ylabel('Frequency')
+plt.show()
+    </code></pre>
+
+    <h3>Correlation Heatmap</h3>
+    <p>A correlation heatmap helps identify relationships between variables in the dataset.</p>
+    <pre><code>
+# Plotting a correlation heatmap
+plt.figure(figsize=(10,8))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Correlation Heatmap')
+plt.show()
+    </code></pre>
+
+    <h2>Step 6: Outlier Detection</h2>
+    <p>To detect outliers, boxplots can be used. Below is an example of a boxplot for sales data.</p>
+    <pre><code>
+# Boxplot to detect outliers
+plt.figure(figsize=(8,6))
+sns.boxplot(df['Sales'], color='lightgreen')
+plt.title('Boxplot for Sales')
+plt.show()
+    </code></pre>
+
+    <h2>Step 7: Conclusion</h2>
+    <p>This EDA process allows us to understand the dataset, clean it, and generate visual insights. Based on this analysis, we can further decide how to preprocess the data for machine learning or other predictive tasks.</p>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
